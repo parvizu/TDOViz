@@ -1,0 +1,119 @@
+#container {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+#bookTitle {
+	display: inline-block;
+}
+
+#main,
+#chapters {
+	display: none;
+	height: 350px;
+}
+
+#menu {
+	padding: 20px;
+	display: inline-block;
+	margin-left: 100px;
+}
+
+#main {
+/*	background-color: ghostwhite;
+	border-radius: 5px;
+	padding: 10px;*/
+
+}
+
+.title {
+	border-bottom: solid thin black;
+	width: 800px;
+	display: none;
+}
+
+#main .chart {
+	margin-top: 25px;
+}
+
+.hidden {
+	display: none;
+}
+
+.grayed {
+	fill: lightgray;
+}
+
+/************ MAIN ************/
+#tooltip, 
+#tooltip2 {
+	background-color: ghostwhite;
+	border-radius: 5px;
+	padding:10px;
+	width:180px;
+	text-align: center;
+	position: absolute;
+	top: 110px;
+	border: solid thin lightgray;
+	color: black;
+	font-family: helvetica;
+	font-size: 10pt;
+}
+
+#value {
+	color: black;
+	font-family: helvetica;
+	font-size: 10pt;
+}
+
+rect.discipline:hover, 
+rect.chapter:hover {
+	cursor: pointer;
+}
+
+
+/******** SELECTED BREAKDOWN ********/
+
+.breakdown {
+	display: inline-block;
+	min-width: 380px;
+	border-radius: 5px;
+	/*background-color: ghostwhite;
+	border: solid thin black;*/
+}
+.breakdown2 {
+	display: inline-block;
+	min-width: 320px;
+	border-radius: 5px;
+	/*background-color: ghostwhite;
+	border: solid thin black;*/
+}
+
+#chapterDisciplines {
+	
+	width:120px;
+	display: inline-block;
+	vertical-align: top;
+}
+/*.breakdown svg {
+	margin: 5px;
+}*/
+.chartTitle {
+	font: 14px sans-serif;
+	font-weight: bold;
+}
+.chapterTitle {
+	font: 13px sans-serif;
+	font-weight: bold;	
+}
+
+.axis text {
+	font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
