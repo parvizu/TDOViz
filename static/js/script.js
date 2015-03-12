@@ -1,6 +1,10 @@
 
 
 var colors = d3.scale.category20();
+var disciplines = ["Archives", "Business", "Cognitive Science", "Computing", "IA", "Law", "Linguistics", "LIS", "Museums", "Philosophy", "Web"];
+
+var disciplineSelections= [];
+var chapterSelections = [];
 
 var hue = function (i) {
 	var hues = {
@@ -20,6 +24,7 @@ var hue = function (i) {
 
 	return hues[i];
 }
+
 var disciplineTotals = [
 		 {
 	        name: "Archives",
@@ -71,18 +76,18 @@ var disciplineTotals = [
 	            notes: 35
 	        }]
 	    },{
-	        name: "Museums",
-	        data: [{
-	            cat: "TDO",
-	            percentage: 3.71,
-	            notes: 21
-	        }]
-	    },{
 	        name: "LIS",
 	        data: [{
 	            cat: "TDO",
 	            percentage: 19.43,
 	            notes: 110
+	        }]
+	    },{
+	        name: "Museums",
+	        data: [{
+	            cat: "TDO",
+	            percentage: 3.71,
+	            notes: 21
 	        }]
 	    },{
 	        name: "Philosophy",
@@ -1090,51 +1095,219 @@ var chaptersBreakdown = [{
             'title':'The Forms of Resource Descriptions' ,
             'LIS': {
                 notes: 3,
-                percentage: 5.35714285714286
+                percentage: 5.35714285714286,
+                length: 65, 
+                lenpercent: 1.94, 
+                notesData : [
+					{ section: 8.2, category: 'LIS', length: 27, percentage: 0.9 },
+					{ section: 8.2, category: 'LIS', length: 33, percentage: 1.1 },
+					{ section: 8.2, category: 'LIS', length: 5, percentage: 0.17 }
+                ]
             },
             'Archives': {
                 notes: 0,
-                percentage: 0
+                percentage: 0,
+                length: 0, 
+                lenpercent: 0, 
+                notesData : [
+
+                ]
             },
             'Business': {
                 notes: 1,
-                percentage: 1.78571428571429
+                percentage: 1.78571428571429,
+                length: 19, 
+                lenpercent: 0.57, 
+                notesData : [
+                	{ section: 8.2, category: 'BUSINESS', length: 19, percentage: 0.63 }
+                ]
             },
             'Cognitive Science': {
                 notes: 2,
-                percentage: 3.57142857142857
+                percentage: 3.57142857142857,
+                length: 103, 
+                lenpercent: 3.08, 
+                notesData : [
+                	{ section: 8.2, category: 'COGNITIVE SCIENCE', length: 65, percentage: 2.16 },
+					{ section: 8.3, category: 'COGNITIVE SCIENCE', length: 38, percentage: 1.27 }
+                ]
             },
             'Computing': {
                 notes: 36,
-                percentage: 64.2857142857143
+                percentage: 64.2857142857143,
+                length: 2201, 
+                lenpercent: 65.82, 
+                notesData : [
+                	{ section: 8.2, category: 'COMPUTING', length: 44, percentage: 1.47 },
+					{ section: 8.2, category: 'COMPUTING', length: 169, percentage: 5.63 },
+					{ section: 8.2, category: 'COMPUTING', length: 38, percentage: 1.27 },
+					{ section: 8.2, category: 'COMPUTING', length: 47, percentage: 1.57 },
+					{ section: 8.2, category: 'COMPUTING', length: 36, percentage: 1.2 },
+					{ section: 8.2, category: 'COMPUTING', length: 93, percentage: 3.1 },
+					{ section: 8.2, category: 'COMPUTING', length: 54, percentage: 1.8 },
+					{ section: 8.2, category: 'COMPUTING', length: 57, percentage: 1.9 },
+					{ section: 8.2, category: 'COMPUTING', length: 26, percentage: 0.87 },
+					{ section: 8.2, category: 'COMPUTING', length: 129, percentage: 4.3 },
+					{ section: 8.2, category: 'COMPUTING', length: 33, percentage: 1.1 },
+					{ section: 8.2, category: 'COMPUTING', length: 38, percentage: 1.27 },
+					{ section: 8.2, category: 'COMPUTING', length: 95, percentage: 3.16 },
+					{ section: 8.2, category: 'COMPUTING', length: 42, percentage: 1.4 },
+					{ section: 8.2, category: 'COMPUTING', length: 33, percentage: 1.1 },
+					{ section: 8.2, category: 'COMPUTING', length: 72, percentage: 2.4 },
+					{ section: 8.2, category: 'COMPUTING', length: 65, percentage: 2.16 },
+					{ section: 8.2, category: 'COMPUTING', length: 91, percentage: 3.03 },
+					{ section: 8.2, category: 'COMPUTING', length: 63, percentage: 2.1 },
+					{ section: 8.2, category: 'COMPUTING', length: 55, percentage: 1.83 },
+					{ section: 8.2, category: 'COMPUTING', length: 164, percentage: 5.46 },
+					{ section: 8.2, category: 'COMPUTING', length: 87, percentage: 2.9 },
+					{ section: 8.2, category: 'COMPUTING', length: 171, percentage: 5.69 },
+					{ section: 8.3, category: 'COMPUTING', length: 12, percentage: 0.4 },
+					{ section: 8.3, category: 'COMPUTING', length: 2, percentage: 0.07 },
+					{ section: 8.3, category: 'COMPUTING', length: 1, percentage: 0.03 },
+					{ section: 8.3, category: 'COMPUTING', length: 64, percentage: 2.13 },
+					{ section: 8.3, category: 'COMPUTING', length: 17, percentage: 0.57 },
+					{ section: 8.3, category: 'COMPUTING', length: 47, percentage: 1.57 },
+					{ section: 8.3, category: 'COMPUTING', length: 21, percentage: 0.7 },
+					{ section: 8.3, category: 'COMPUTING', length: 48, percentage: 1.6 },
+					{ section: 8.3, category: 'COMPUTING', length: 54, percentage: 1.8 },
+					{ section: 8.3, category: 'COMPUTING', length: 30, percentage: 1 },
+					{ section: 8.3, category: 'COMPUTING', length: 90, percentage: 3 },
+					{ section: 8.3, category: 'COMPUTING', length: 56, percentage: 1.86 },
+					{ section: 8.4, category: 'COMPUTING', length: 57, percentage: 1.9 }
+
+                ]
             },
             'IA': {
                 notes: 0,
-                percentage: 0
+                percentage: 0,
+                length: 0, 
+                lenpercent: 0, 
+                notesData : [
+
+                ]
             },
             'Law': {
                 notes: 0,
-                percentage: 0
+                percentage: 0,
+                length: 0, 
+                lenpercent: 0, 
+                notesData : [
+
+                ]
             },
             'Linguistics': {
                 notes: 8,
-                percentage: 14.2857142857143
+                percentage: 14.2857142857143,
+                length: 313, 
+                lenpercent: 9.36, 
+                notesData : [
+                	{ section: 8.2, category: 'LINGUISTICS', length: 37, percentage: 1.23 },
+					{ section: 8.2, category: 'LINGUISTICS', length: 44, percentage: 1.47 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 54, percentage: 1.8 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 17, percentage: 0.57 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 51, percentage: 1.7 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 41, percentage: 1.37 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 53, percentage: 1.76 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 16, percentage: 0.53 }
+
+                ]
             },
             'Museums': {
                 notes: 0,
-                percentage: 0
+                percentage: 0,
+                length: 0, 
+                lenpercent: 0, 
+                notesData : [
+
+                ]
             },
             'Philosophy': {
                 notes: 0,
-                percentage: 0
+                percentage: 0,
+                length: 0, 
+                lenpercent: 0, 
+                notesData : [
+
+                ]
             },
             'Web': {
                 notes: 6,
-                percentage: 10.7142857142857
+                percentage: 10.7142857142857,
+                length: 302, 
+                lenpercent: 9.03, 
+                notesData : [
+                	{ section: 8.2, category: 'WEB', length: 7, percentage: 0.23 },
+					{ section: 8.4, category: 'WEB', length: 42, percentage: 1.4 },
+					{ section: 8.4, category: 'WEB', length: 17, percentage: 0.57 },
+					{ section: 8.4, category: 'WEB', length: 61, percentage: 2.03 },
+					{ section: 8.4, category: 'WEB', length: 95, percentage: 3.16 },
+					{ section: 8.4, category: 'WEB', length: 80, percentage: 2.66 }
+                ]
             },
             'TOTAL': {
                 notes: 56,
-                percentage: 9.55
+                percentage: 9.55,
+                length: 3003, 
+                lenpercent: 100, 
+                notesData : [
+                	{ section: 8.2, category: 'BUSINESS', length: 19, percentage: 0.63 },
+					{ section: 8.2, category: 'COGNITIVE SCIENCE', length: 65, percentage: 2.16 },
+					{ section: 8.3, category: 'COGNITIVE SCIENCE', length: 38, percentage: 1.27 },
+					{ section: 8.2, category: 'COMPUTING', length: 44, percentage: 1.47 },
+					{ section: 8.2, category: 'COMPUTING', length: 169, percentage: 5.63 },
+					{ section: 8.2, category: 'COMPUTING', length: 38, percentage: 1.27 },
+					{ section: 8.2, category: 'COMPUTING', length: 47, percentage: 1.57 },
+					{ section: 8.2, category: 'COMPUTING', length: 36, percentage: 1.2 },
+					{ section: 8.2, category: 'COMPUTING', length: 93, percentage: 3.1 },
+					{ section: 8.2, category: 'COMPUTING', length: 54, percentage: 1.8 },
+					{ section: 8.2, category: 'COMPUTING', length: 57, percentage: 1.9 },
+					{ section: 8.2, category: 'COMPUTING', length: 26, percentage: 0.87 },
+					{ section: 8.2, category: 'COMPUTING', length: 129, percentage: 4.3 },
+					{ section: 8.2, category: 'COMPUTING', length: 33, percentage: 1.1 },
+					{ section: 8.2, category: 'COMPUTING', length: 38, percentage: 1.27 },
+					{ section: 8.2, category: 'COMPUTING', length: 95, percentage: 3.16 },
+					{ section: 8.2, category: 'COMPUTING', length: 42, percentage: 1.4 },
+					{ section: 8.2, category: 'COMPUTING', length: 33, percentage: 1.1 },
+					{ section: 8.2, category: 'COMPUTING', length: 72, percentage: 2.4 },
+					{ section: 8.2, category: 'COMPUTING', length: 65, percentage: 2.16 },
+					{ section: 8.2, category: 'COMPUTING', length: 91, percentage: 3.03 },
+					{ section: 8.2, category: 'COMPUTING', length: 63, percentage: 2.1 },
+					{ section: 8.2, category: 'COMPUTING', length: 55, percentage: 1.83 },
+					{ section: 8.2, category: 'COMPUTING', length: 164, percentage: 5.46 },
+					{ section: 8.2, category: 'COMPUTING', length: 87, percentage: 2.9 },
+					{ section: 8.2, category: 'COMPUTING', length: 171, percentage: 5.69 },
+					{ section: 8.3, category: 'COMPUTING', length: 12, percentage: 0.4 },
+					{ section: 8.3, category: 'COMPUTING', length: 2, percentage: 0.07 },
+					{ section: 8.3, category: 'COMPUTING', length: 1, percentage: 0.03 },
+					{ section: 8.3, category: 'COMPUTING', length: 64, percentage: 2.13 },
+					{ section: 8.3, category: 'COMPUTING', length: 17, percentage: 0.57 },
+					{ section: 8.3, category: 'COMPUTING', length: 47, percentage: 1.57 },
+					{ section: 8.3, category: 'COMPUTING', length: 21, percentage: 0.7 },
+					{ section: 8.3, category: 'COMPUTING', length: 48, percentage: 1.6 },
+					{ section: 8.3, category: 'COMPUTING', length: 54, percentage: 1.8 },
+					{ section: 8.3, category: 'COMPUTING', length: 30, percentage: 1 },
+					{ section: 8.3, category: 'COMPUTING', length: 90, percentage: 3 },
+					{ section: 8.3, category: 'COMPUTING', length: 56, percentage: 1.86 },
+					{ section: 8.4, category: 'COMPUTING', length: 57, percentage: 1.9 },
+					{ section: 8.2, category: 'LINGUISTICS', length: 37, percentage: 1.23 },
+					{ section: 8.2, category: 'LINGUISTICS', length: 44, percentage: 1.47 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 54, percentage: 1.8 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 17, percentage: 0.57 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 51, percentage: 1.7 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 41, percentage: 1.37 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 53, percentage: 1.76 },
+					{ section: 8.3, category: 'LINGUISTICS', length: 16, percentage: 0.53 },
+					{ section: 8.2, category: 'LIS', length: 27, percentage: 0.9 },
+					{ section: 8.2, category: 'LIS', length: 33, percentage: 1.1 },
+					{ section: 8.2, category: 'LIS', length: 5, percentage: 0.17 },
+					{ section: 8.2, category: 'WEB', length: 7, percentage: 0.23 },
+					{ section: 8.4, category: 'WEB', length: 42, percentage: 1.4 },
+					{ section: 8.4, category: 'WEB', length: 17, percentage: 0.57 },
+					{ section: 8.4, category: 'WEB', length: 61, percentage: 2.03 },
+					{ section: 8.4, category: 'WEB', length: 95, percentage: 3.16 },
+					{ section: 8.4, category: 'WEB', length: 80, percentage: 2.66 }
+
+                ]
             }
         }, {
             'chapter': 9,
@@ -1292,7 +1465,7 @@ var chaptersBreakdown = [{
         }
 	];
 
-d3.select('#container').append('div')
+d3.select('#tdoViz').append('div')
 		.attr('id','tooltip')
 		.attr('class','hidden')
 		.append('span')
@@ -1396,6 +1569,7 @@ function disciplineBreakdown() {
 						// $("#breakdownOver").html(' ');
 					})
 					.on('click', function(d,i) {
+						selectDiscipline(disciplines[i]);
 						breakdown('#breakdownSelected',d,i);
 					})			
 }
@@ -1408,11 +1582,11 @@ function breakdown(id,discipline,index) {
 		return d;
 	});
 
-	var height = 170;
+	var height = 70;
 	var bdown = d3.select('div '+id).append('svg')
 		.attr('id','disciplineBreakdown')
 		.attr('width',370)
-		.attr('height',220)
+		.attr('height',120)
 
 	var y = d3.scale.linear()
 				.domain([0,40])
@@ -1441,7 +1615,7 @@ function breakdown(id,discipline,index) {
 	    .on('mouseover', function(d) {
 	    	chapterBreakdown();
 	    	chapterDetails(d.chapter,'#chapterOver');
-	    	if (d.chapter === 1) {
+	    	if (d.chapter === 1 || d.chapter == 8) {
 				chapterDetails(d.chapter,'#chapterSelected');
 			}
 	    })
@@ -1531,7 +1705,7 @@ function breakdown(id,discipline,index) {
 }	  
 
 function chapterBreakdown() {
-	d3.select('#container').append('div')
+	d3.select('#tdoViz').append('div')
 		.attr('id','tooltip2')
 		.attr('class','hidden')
 		.append('span')
@@ -1621,7 +1795,7 @@ function chapterBreakdown() {
 							.text(text);
 
 						chapterDetails(i+1,'#chapterOver');
-						if (i+1 === 1) {
+						if (i+1 === 1 || i+1 == 8) {
 							chapterDetails(i+1,'#chapterSelected');
 						}
 					})
@@ -1636,7 +1810,6 @@ function chapterBreakdown() {
 
 function chapterDetails(chapter,target) {
 	
-	var disciplines = ["Archives", "Business", "Cognitive Science", "Computing", "IA", "Law", "Linguistics", "LIS", "Museums", "Philosophy", "Web"];
 	var chartWidth = 320;
 	var barHeight = 20;
 
@@ -1656,7 +1829,7 @@ function chapterDetails(chapter,target) {
 					'percentage':d[key].percentage
 				};
 				// Testing for note length mode just for chapter 1.
-				if (d.chapter == 1) {
+				if (d.chapter == 1 || chapter == 8) {
 					temp['length'] = d[key].length;
 					temp['lenpercent'] = d[key].lenpercent;
 					temp['notesData'] = d[key].notesData;
@@ -1672,7 +1845,7 @@ function chapterDetails(chapter,target) {
 		}		
 	});
 
-	console.log(chapterData);
+	// console.log(chapterData);
 	var svg = d3.select("div"+target).append("svg")
 					.attr({
 						'width': chartWidth,
@@ -1693,9 +1866,9 @@ function chapterDetails(chapter,target) {
 		// 	})
 		// 	.text(chapters[chapter-1].title);
 
-	if (chapter === 1 && target == '#chapterOver') {
+	if ((chapter === 1 || chapter == 8) && target == '#chapterOver') {
 		var x = d3.scale.linear()
-		    .domain([0, 1200])
+		    .domain([0, 2250])
 		    .range([0, chartWidth-20]);
 
 		var xOver = d3.scale.linear()
@@ -1725,7 +1898,7 @@ function chapterDetails(chapter,target) {
 	bar.append("rect")
 	    .attr("width", function(d) {
 	    	if (target === 'chapterOver')
-	    		if (chapter === 1)
+	    		if (chapter === 1 || chapter == 8)
 	    			return x(d.length);
 	    		else 
 	    			return x(d.notes);
@@ -1750,7 +1923,7 @@ function chapterDetails(chapter,target) {
 	      .duration(300)
 	      .attr('x', function(d) { 
 	      		if (target === '#chapterOver')
-	      			if (chapter === 1)
+	      			if (chapter === 1 || chapter == 8)
 		    			return chartWidth -x(d.length);
 		    		else
 	      				return chartWidth -x(d.notes);
@@ -1758,7 +1931,7 @@ function chapterDetails(chapter,target) {
 	      			return 0;
 	      })
 	      .attr('width', function(d) {
-	      		if (chapter === 1 && target == '#chapterOver')
+	      		if ((chapter === 1 || chapter == 8) && target == '#chapterOver')
 	    			return x(d.length);
 	    		else
 	      			return x(d.notes);
@@ -1782,7 +1955,7 @@ function chapterDetails(chapter,target) {
 			.attr('y',215)
 			// .attr('dx','.31em')
 			.text(function () { 
-				if (chapter == 1)
+				if (chapter == 1 || chapter == 8)
 					return "# of words"
 				else
 					return "# of notes"
@@ -1805,7 +1978,7 @@ function chapterDetails(chapter,target) {
 	    .attr({
 	    	x : function(d) {
 	    		if (target == '#chapterOver') {
-	    			if (chapter == 1) {
+	    			if (chapter == 1 || chapter == 8) {
 	    				if (d.length < 100)
 		    				return chartWidth - (x(d.length) +20);
 		    			return chartWidth - (x(d.length) -5);
@@ -1830,7 +2003,7 @@ function chapterDetails(chapter,target) {
 	    	y: barHeight / 2,
 	    	dy: ".35em",
 	    	fill: function(d) {
-	    		if (target == '#chapterOver' && chapter == 1) {
+	    		if (target == '#chapterOver' && (chapter == 1 || chapter == 8)) {
 	    			if (d.length <100 )
 	    				return 'black';
 	    			else
@@ -1841,7 +2014,7 @@ function chapterDetails(chapter,target) {
 	    	}
 	    })
 	    .text(function(d) {
-	    	if (target == '#chapterOver' && chapter === 1) {
+	    	if (target == '#chapterOver' && (chapter === 1 || chapter == 8)) {
 	    		if (d.length > 0)
 	    			return d.length; 
 	    	}
@@ -1880,6 +2053,210 @@ function showDisciplineLabels(disciplines,barHeight) {
 	    		return d; 
 	    });
 }
+
+
+/*
+	This function will handle the selection/unselection of the two disciplines that will be compared in the Side by Side Discipline Breakdown.
+
+*/
+function selectDiscipline(selection) {
+	var index = $.inArray(selection,disciplineSelections);
+	if (index != -1) {
+		disciplineSelections.splice(index,1);
+	} else {
+		disciplineSelections.push(selection);
+	}
+
+	disciplineSideBySide();
+}
+
+
+/*
+	Function that will display the Discipline Breakdon side by side bars by chapter.
+*/
+function disciplineSideBySide() {
+
+	$('#sidebyside').remove();
+	var margin = 20;
+	var width = 800;
+	var height = 180;
+	var groupPadding = .2;
+
+	var temp = [];
+	$.each(disciplines, function(i,d) {
+		if ($.inArray(d,disciplineSelections)!=-1)
+			temp.push(d);
+	})
+	disciplineSelections = temp;
+
+	var svg = d3.select("div#main .chart").append('svg')
+					.attr({
+						'id':'sidebysideChapter',
+						'width': width,
+						'height':height,
+						'id':'sidebyside'
+					});
+
+	//Processing the data to get it in the correct structure needed.
+	var data = [];
+	for (var i = 1; i<12; i++) {
+		var obj = {
+			'chapter': i,
+			'data': []
+		};
+		$.each(disciplineSelections, function (j,d) {
+			var t = $.grep(disciplinesBreakdown[d], function (n,k) {
+					return (n.chapter == i);
+				});
+			obj.data.push({
+				'discipline': d,
+				'notes': t[0].notes
+			})
+		})
+
+		data.push(obj);
+	}
+
+	var x0 = d3.scale.ordinal()
+				.domain(["1","2","3","4","5","6","7","8","9","10","11"])
+				.rangeBands([margin, width-margin],groupPadding);
+	var x1 = d3.scale.ordinal();
+	var y = d3.scale.linear()
+    			.range([height-margin, 0]);
+
+	x1.domain(disciplineSelections).rangeRoundBands([0,x0.rangeBand()]);
+	var maxValue = d3.max(data, function(d) { 
+		return d3.max(d.data, function(n) { 
+			return n.notes+1; 
+		}); 
+	});
+
+	y.domain([0, maxValue]);
+
+	var ticks;
+	if (maxValue > 5) {
+		ticks = maxValue/5;
+	} else {
+		ticks = maxValue;
+	}
+
+
+	var xAxis = d3.svg.axis()
+	    .scale(x0)
+	    .orient("bottom");
+
+	var yAxis = d3.svg.axis()
+	    .scale(y)
+	    .orient("left")
+	    .ticks(ticks)
+	    // .tickFormat(d3.format(".2s"));
+
+	var barGroups = svg.selectAll('g')
+		.data(data)
+		.enter()
+		.append('g')
+			.attr('transform',function(d) {
+				return "translate("+x0(d.chapter)+",0)";
+			})	
+			.attr('class',function(d) {
+				return 'sidebyside ggroup ch'+d.chapter;
+			})
+			.on('mouseover', function(d) {
+				console.log(d.chapter);
+				$('g.sidebyside.ch'+d.chapter+' text').attr('fill','black');
+			})
+			.on('mouseout', function(d) {				
+				$('g.sidebyside.ch'+d.chapter+' text').attr('fill','white');
+			});		
+
+	svg.append('span')
+		.attr("id","sidebysideTooltip");
+
+	barGroups.selectAll("rect")
+      	.data(function(d) {
+      		return d.data;
+      	})
+	    .enter()
+	    .append("rect")
+	      .attr({
+	      	"width": function(d,i) {
+	      		return x1.rangeBand()
+	      	},
+	      	"x": function(d,i) { 
+	      		return x1(d.discipline);
+	      	},
+	      	"y": function(d) { 
+	      		return height-margin;
+	      		//return y(d.notes); 
+	      	},
+	      	"height": function(d) { 
+	      		return 0;
+	      		//return (height-margin) - y(d.notes); 
+	      	},
+	      	"fill": function(d,i) { 
+	      		return colors($.inArray(d.discipline,disciplines)); 
+	      	},
+	      	'notes':function(d) {
+	      		return d.notes;
+	      	}
+	      })
+	      .on('mouseover',function(d) {
+
+	      })
+	      .transition()
+			.delay(function(d, i) { return i * 200; })
+			.duration(100)
+			.attr('y', function(d) { 
+				return y(d.notes); 
+			})
+			.attr('height', function(d) { 
+				return (height-margin) - y(d.notes);
+			});
+
+	svg.append("g")
+		.attr("class", "x axis")
+		.attr("transform", "translate(0," + (height-margin) + ")")
+		.call(xAxis);
+
+	svg.append("g")
+	  .attr("class", "y axis")
+	  .attr("transform", "translate(20,0)")
+	  .call(yAxis)
+	.append("text")
+	  .attr("transform", "rotate(-90)")
+	  .attr("y", margin)
+	  .attr("dy", ".71em")
+	  .style("text-anchor", "end")
+	  .text("# of notes");
+
+	barGroups.selectAll('.sidebysideLabel')
+		.data(function(d) {
+			return d.data
+		})
+		.enter()
+		.append('text')
+		.attr({
+			'x': function(d,i){
+				return x1(d.discipline)+(x1.rangeBand()/2)-5;
+			},
+			'y': function(d,i) {
+				return y(d.notes)-10;
+			},
+			'fill': function(d) {
+				return 'white';
+				// return colors($.inArray(d.discipline,disciplines)); 
+			}			
+		})
+		.text(function(d) {
+			if (d.notes > 0)
+				return d.notes;
+		})
+}
+
+
+
+
+
 
 
 
