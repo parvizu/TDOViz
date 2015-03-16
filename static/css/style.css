@@ -53,7 +53,7 @@
 	width:180px;
 	text-align: center;
 	position: absolute;
-	top: 70px;
+	top: 455px;
 	border: solid thin lightgray;
 	color: black;
 	font-family: helvetica;
@@ -84,6 +84,8 @@ rect.chapter:hover {
 .x.axis path {
   /*display: none;*/
 }
+
+
 
 /******** SELECTED BREAKDOWN ********/
 
@@ -129,4 +131,16 @@ rect.chapter:hover {
 	fill: none;
 	stroke: #000;
 	shape-rendering: crispEdges;
+}
+
+
+/*********** Stacked Bar Chart ************/
+
+#stacked {
+	margin-top: 20px;
+}
+
+#stacked h3 {
+	display: block;
+	margin-bottom: 20px;
 }

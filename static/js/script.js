@@ -1473,6 +1473,12 @@ d3.select('#tdoViz').append('div')
 d3.select('#tooltip').append('div')
 			.attr('id','stats');
 
+
+$(document).ready(function() {
+	createStackBar();
+})
+
+
 function disciplineBreakdown() {
 	$('#main').show();
 	$('#main .chart').html('');
@@ -1562,7 +1568,7 @@ function disciplineBreakdown() {
 						d3.select("#stats")
 							.text("Notes: "+d[0].n);
 
-						breakdown('#breakdownOver',d,i);
+						//breakdown('#breakdownOver',d,i);
 					})
 					.on('mouseout',function(d) {
 						d3.select('#tooltip').classed('hidden',true);
@@ -1570,9 +1576,10 @@ function disciplineBreakdown() {
 					})
 					.on('click', function(d,i) {
 						selectDiscipline(disciplines[i]);
-						breakdown('#breakdownSelected',d,i);
+						//breakdown('#breakdownSelected',d,i);
 					})			
 }
+
 
 function breakdown(id,discipline,index) {
 
@@ -1704,6 +1711,7 @@ function breakdown(id,discipline,index) {
 		.text(discipline);
 }	  
 
+
 function chapterBreakdown() {
 	d3.select('#tdoViz').append('div')
 		.attr('id','tooltip2')
@@ -1807,6 +1815,8 @@ function chapterBreakdown() {
 						chapterDetails(i+1,'#chapterSelected');
 					})	
 }
+
+
 
 function chapterDetails(chapter,target) {
 	
@@ -2026,6 +2036,10 @@ function chapterDetails(chapter,target) {
 	    });
 }
 
+
+/*
+	Function that will display the labels of the disciplines in the chapter breakdown detail chart.
+*/
 function showDisciplineLabels(disciplines,barHeight) {
 	$('#chapterDisciplines').html('');
 	$('#chapterDisciplines').show();
@@ -2091,7 +2105,7 @@ function disciplineSideBySide() {
 
 	var svg = d3.select("div#main .chart").append('svg')
 					.attr({
-						'id':'sidebysideChapter',
+						'display':'block',
 						'width': width,
 						'height':height,
 						'id':'sidebyside'
@@ -2253,6 +2267,200 @@ function disciplineSideBySide() {
 		})
 }
 
+
+/*
+
+*/
+function createStackBar() {
+
+	var width = 800,
+		height = 300,
+		margin = 20;
+
+
+
+	var svg = d3.select('div#stacked').append('svg')
+				.attr({
+					'width': width,
+					'height':height
+				});
+
+	var data  = [
+		{
+			'chapter':1,'totalLength':19342,'notesLength':3344,'contentLength':15998,'notes%':17.29,'content%':82.71,	'lengths':[{'cat':'Content','percentage':82.71,'value':15998,'y0':0,'y1':15998},{'cat':'Notes','percentage':17.29,'value':3344,'y0':15998,'y1':19342}]
+		},
+		{
+			'chapter':2,'totalLength':15772,'notesLength':2120,'contentLength':13652,'notes%':13.44,'content%':86.56,	'lengths':[{'cat':'Content','percentage':86.56,'value':13652,'y0':0,'y1':13652},{'cat':'Notes','percentage':13.44,'value':2120,'y0':13652,'y1':15772}]
+		},
+		{
+			'chapter':3,'totalLength':21010,'notesLength':3267,'contentLength':17743,'notes%':15.55,'content%':84.45,	'lengths':[{'cat':'Content','percentage':84.45,'value':17743,'y0':0,'y1':17743},{'cat':'Notes','percentage':15.55,'value':3267,'y0':17743,'y1':21010}]
+		},
+		{
+			'chapter':4,'totalLength':17654,'notesLength':1450,'contentLength':16204,'notes%':8.21,'content%':91.79,	'lengths':[{'cat':'Content','percentage':91.79,'value':16204,'y0':0,'y1':16204},{'cat':'Notes','percentage':8.21,'value':1450,'y0':16204,'y1':17654}]
+		},
+		{
+			'chapter':5,'totalLength':22765,'notesLength':3450,'contentLength':19315,'notes%':15.15,'content%':84.85,	'lengths':[{'cat':'Content','percentage':84.85,'value':19315,'y0':0,'y1':19315},{'cat':'Notes','percentage':15.15,'value':3450,'y0':19315,'y1':22765}]
+		},
+		{
+			'chapter':6,'totalLength':18096,'notesLength':4563,'contentLength':13533,'notes%':25.22,'content%':74.78,	'lengths':[{'cat':'Content','percentage':74.78,'value':13533,'y0':0,'y1':13533},{'cat':'Notes','percentage':25.22,'value':4563,'y0':13533,'y1':18096}]
+		},
+		{
+			'chapter':7,'totalLength':19763,'notesLength':2897,'contentLength':16866,'notes%':14.66,'content%':85.34,	'lengths':[{'cat':'Content','percentage':85.34,'value':16866,'y0':0,'y1':16866},{'cat':'Notes','percentage':14.66,'value':2897,'y0':16866,'y1':19763}]
+		},
+		{
+			'chapter':8,'totalLength':18290,'notesLength':3003,'contentLength':15287,'notes%':16.42,'content%':83.58,	'lengths':[{'cat':'Content','percentage':83.58,'value':15287,'y0':0,'y1':15287},{'cat':'Notes','percentage':16.42,'value':3003,'y0':15287,'y1':18290}]
+		},
+		{
+			'chapter':9,'totalLength':21543,'notesLength':2104,'contentLength':19439,'notes%':9.77,'content%':90.23,	'lengths':[{'cat':'Content','percentage':90.23,'value':19439,'y0':0,'y1':19439},{'cat':'Notes','percentage':9.77,'value':2104,'y0':19439,'y1':21543}]
+		},
+		{
+			'chapter':10,'totalLength':25094,'notesLength':6024,'contentLength':19070,'notes%':24.01,'content%':75.99,	'lengths':[{'cat':'Content','percentage':75.99,'value':19070,'y0':0,'y1':19070},{'cat':'Notes','percentage':24.01,'value':6024,'y0':19070,'y1':25094}]
+		},
+		{
+			'chapter':11,'totalLength':17908,'notesLength':1402,'contentLength':16506,'notes%':7.83,'content%':92.17,	'lengths':[{'cat':'Content','percentage':92.17,'value':16506,'y0':0,'y1':16506},{'cat':'Notes','percentage':7.83,'value':1402,'y0':16506,'y1':17908}]
+		}
+	]
+
+	var x = d3.scale.ordinal()
+				.domain(data.map(function(d) {
+					return d.chapter;
+				}))
+				// .range([20,width-margin])
+				.rangeRoundBands([margin+10,width-margin],.1);
+
+	var y = d3.scale.linear()
+				.domain([d3.max(data,function(d) {
+					return d.totalLength
+				}),0])
+				.range([0,height-90]);
+
+	var xAxis = d3.svg.axis()
+					.scale(x)
+					.orient('bottom');
+
+	var yAxis = d3.svg.axis()
+					.scale(y)
+					.orient('left')
+					.ticks(10)
+					.tickFormat(d3.format(".2s"));
+
+	
+
+	var bars = svg.selectAll('.ch')
+					.data(data)
+					.enter()
+					.append('g')
+					.attr({
+						'class':'g',
+						'transform': function(d) {
+							return 'translate('+ x(d.chapter) +',0)';
+						}
+					});
+
+	bars.selectAll('rect')
+		.data(function(d) {
+			return d.lengths;
+		})
+		.enter()
+		.append('rect')
+		.attr({
+			'width': x.rangeBand(),
+			'y': function(d) {
+				return y(d.y1)
+			},
+			'height': function(d) {
+				return y(d.y0) - y(d.y1)
+			},
+			'fill': function (d) {
+				if (d.cat == 'Content')
+					return hue(7);
+				else 
+					return hue(0);
+			},
+			'value': function(d) {
+				return d.value;	
+			}
+		})
+
+	bars.selectAll('text')
+		.data(function(d) {
+			return d.lengths
+		})
+		.enter()
+		.append('text')
+		.attr({
+			transform: function(d) {
+				return 'translate(10,'+(y(d.y0)-5)+')';
+			},
+			fill: function(d) {
+				if (d.cat == 'Content') 
+					return 'white';
+				else
+					return 'black';
+			},
+			'font-size': '10px'
+
+		})
+		.text(function(d) {
+			return d.percentage+"%";
+		})
+
+
+	svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + (height-90) + ")")
+      .call(xAxis)
+    .append("text")
+	  .attr("transform", "translate("+(width/2)+",0)")
+	  .attr("y", 20)
+	  .attr("dy", ".81em")
+	  .style("text-anchor", "end")
+	  .text("Chapter");
+
+	svg.append("g")
+	  .attr("class", "y axis")
+	  .attr("transform", "translate("+(margin+10)+",0)")
+	  .call(yAxis)
+	.append("text")
+	  .attr("transform", "rotate(-90)")
+	  .attr("y", 5)
+	  .attr("dy", ".81em")
+	  .style("text-anchor", "end")
+	  .text("Length");
+
+	svg.append('rect')
+		.attr({
+			width: 10,
+			height:10,
+			x: width/3,
+			y:height-50,
+			fill: hue(7)
+		})
+
+	svg.append('text')
+		.attr({
+			x: (width/3)+15,
+			y:height-40,
+			'font-size':'12px'
+		})
+		.text("Chapter Content")
+
+	svg.append('rect')
+		.attr({
+			width: 10,
+			height:10,
+			x: (width/2),
+			y:height-50,
+			fill: hue(0)
+		});
+	svg.append('text')
+		.attr({
+			x: (width/2)+15,
+			y:height-40,
+			'font-size':'12px'
+		})
+		.text("Chapter Notes")
+}
 
 
 
