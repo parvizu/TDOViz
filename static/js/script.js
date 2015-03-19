@@ -1,6 +1,32 @@
 
+var colors = function(i) {
+	var colors = {
+		0: '#3182bd',
+		1:'#6baed6',
+		2:'#9ecae1',
+		3:'#c6dbef',
+		4:'#e6550d',
+		5:'#fd8d3c',
+		6:'#fdae6b',
+		7:'#fdd0a2',
+		8:'#31a354',
+		9:'#74c476',
+		10:'#a1d99b',
+		11:'#c7e9c0',
+		12:'#756bb1',
+		13:'#9e9ac8',
+		14:'#bcbddc',
+		15:'#dadaeb',
+		16:'#636363',
+		17:'#969696',
+		18:'#bdbdbd',
+		20:'#d9d9d9'
+	}
+	return colors[i];
+}
 
-var colors = d3.scale.category20();
+
+
 var disciplines = ["Archives", "Business", "Cognitive Science", "Computing", "IA", "Law", "Linguistics", "LIS", "Museums", "Philosophy", "Web"];
 
 var disciplineSelections= [];
@@ -24,6 +50,228 @@ var hue = function (i) {
 
 	return hues[i];
 }
+
+var chapterPercentages  = [{
+    'chapter': 1,
+    'totalLength': 19342,
+    'notesLength': 3344,
+    'contentLength': 15998,
+    'notes%': 17.29,
+    'content%': 82.71,
+    'lengths': [{
+        'cat': 'Content',
+        'percentage': 82.71,
+        'value': 15998,
+        'y0': 0,
+        'y1': 15998
+    }, {
+        'cat': 'Notes',
+        'percentage': 17.29,
+        'value': 3344,
+        'y0': 15998,
+        'y1': 19342
+    }]
+}, {
+    'chapter': 2,
+    'totalLength': 15772,
+    'notesLength': 2120,
+    'contentLength': 13652,
+    'notes%': 13.44,
+    'content%': 86.56,
+    'lengths': [{
+        'cat': 'Content',
+        'percentage': 86.56,
+        'value': 13652,
+        'y0': 0,
+        'y1': 13652
+    }, {
+        'cat': 'Notes',
+        'percentage': 13.44,
+        'value': 2120,
+        'y0': 13652,
+        'y1': 15772
+    }]
+}, {
+    'chapter': 3,
+    'totalLength': 21010,
+    'notesLength': 3267,
+    'contentLength': 17743,
+    'notes%': 15.55,
+    'content%': 84.45,
+    'lengths': [{
+        'cat': 'Content',
+        'percentage': 84.45,
+        'value': 17743,
+        'y0': 0,
+        'y1': 17743
+    }, {
+        'cat': 'Notes',
+        'percentage': 15.55,
+        'value': 3267,
+        'y0': 17743,
+        'y1': 21010
+    }]
+}, {
+    'chapter': 4,
+    'totalLength': 17654,
+    'notesLength': 1450,
+    'contentLength': 16204,
+    'notes%': 8.21,
+    'content%': 91.79,
+    'lengths': [{
+        'cat': 'Content',
+        'percentage': 91.79,
+        'value': 16204,
+        'y0': 0,
+        'y1': 16204
+    }, {
+        'cat': 'Notes',
+        'percentage': 8.21,
+        'value': 1450,
+        'y0': 16204,
+        'y1': 17654
+    }]
+}, {
+    'chapter': 5,
+    'totalLength': 22765,
+    'notesLength': 3450,
+    'contentLength': 19315,
+    'notes%': 15.15,
+    'content%': 84.85,
+    'lengths': [{
+        'cat': 'Content',
+        'percentage': 84.85,
+        'value': 19315,
+        'y0': 0,
+        'y1': 19315
+    }, {
+        'cat': 'Notes',
+        'percentage': 15.15,
+        'value': 3450,
+        'y0': 19315,
+        'y1': 22765
+    }]
+}, {
+    'chapter': 6,
+    'totalLength': 18096,
+    'notesLength': 4563,
+    'contentLength': 13533,
+    'notes%': 25.22,
+    'content%': 74.78,
+    'lengths': [{
+        'cat': 'Content',
+        'percentage': 74.78,
+        'value': 13533,
+        'y0': 0,
+        'y1': 13533
+    }, {
+        'cat': 'Notes',
+        'percentage': 25.22,
+        'value': 4563,
+        'y0': 13533,
+        'y1': 18096
+    }]
+}, {
+    'chapter': 7,
+    'totalLength': 19763,
+    'notesLength': 2897,
+    'contentLength': 16866,
+    'notes%': 14.66,
+    'content%': 85.34,
+    'lengths': [{
+        'cat': 'Content',
+        'percentage': 85.34,
+        'value': 16866,
+        'y0': 0,
+        'y1': 16866
+    }, {
+        'cat': 'Notes',
+        'percentage': 14.66,
+        'value': 2897,
+        'y0': 16866,
+        'y1': 19763
+    }]
+}, {
+    'chapter': 8,
+    'totalLength': 18290,
+    'notesLength': 3003,
+    'contentLength': 15287,
+    'notes%': 16.42,
+    'content%': 83.58,
+    'lengths': [{
+        'cat': 'Content',
+        'percentage': 83.58,
+        'value': 15287,
+        'y0': 0,
+        'y1': 15287
+    }, {
+        'cat': 'Notes',
+        'percentage': 16.42,
+        'value': 3003,
+        'y0': 15287,
+        'y1': 18290
+    }]
+}, {
+    'chapter': 9,
+    'totalLength': 21543,
+    'notesLength': 2104,
+    'contentLength': 19439,
+    'notes%': 9.77,
+    'content%': 90.23,
+    'lengths': [{
+        'cat': 'Content',
+        'percentage': 90.23,
+        'value': 19439,
+        'y0': 0,
+        'y1': 19439
+    }, {
+        'cat': 'Notes',
+        'percentage': 9.77,
+        'value': 2104,
+        'y0': 19439,
+        'y1': 21543
+    }]
+}, {
+    'chapter': 10,
+    'totalLength': 25094,
+    'notesLength': 6024,
+    'contentLength': 19070,
+    'notes%': 24.01,
+    'content%': 75.99,
+    'lengths': [{
+        'cat': 'Content',
+        'percentage': 75.99,
+        'value': 19070,
+        'y0': 0,
+        'y1': 19070
+    }, {
+        'cat': 'Notes',
+        'percentage': 24.01,
+        'value': 6024,
+        'y0': 19070,
+        'y1': 25094
+    }]
+}, {
+    'chapter': 11,
+    'totalLength': 17908,
+    'notesLength': 1402,
+    'contentLength': 16506,
+    'notes%': 7.83,
+    'content%': 92.17,
+    'lengths': [{
+        'cat': 'Content',
+        'percentage': 92.17,
+        'value': 16506,
+        'y0': 0,
+        'y1': 16506
+    }, {
+        'cat': 'Notes',
+        'percentage': 7.83,
+        'value': 1402,
+        'y0': 16506,
+        'y1': 17908
+    }]
+}]
 
 var disciplineTotals = [
 		 {
@@ -1476,6 +1724,8 @@ d3.select('#tooltip').append('div')
 
 $(document).ready(function() {
 	createStackBar();
+	showDisciplineLabels(disciplines,20,'#chapterLabels');
+	chapterDetails(1,'#chapterDetails');
 })
 
 
@@ -1712,6 +1962,9 @@ function breakdown(id,discipline,index) {
 }	  
 
 
+/*
+	Function that will create the chapter breakdown by the number of notes in the book.
+*/
 function chapterBreakdown() {
 	d3.select('#tdoViz').append('div')
 		.attr('id','tooltip2')
@@ -1735,8 +1988,6 @@ function chapterBreakdown() {
     var svg = d3.select('div #chapters .chart').append('svg')
     			.attr('width',800)
     			.attr('height',60);   
-
-    		
 
     totals = chaptersBreakdown.map(function(d,i) {
 			return [{
@@ -1817,13 +2068,15 @@ function chapterBreakdown() {
 }
 
 
-
+/*
+	Function that will create the discipline breakdown of the chapter in particular, right side will be number of notes and left side will be the length of notes.
+*/
 function chapterDetails(chapter,target) {
 	
 	var chartWidth = 320;
 	var barHeight = 20;
 
-	showDisciplineLabels(disciplines,barHeight);
+	showDisciplineLabels(disciplines,barHeight,'#chapterDisciplines');
 
 	$(target).show();
 	$(target).html('');
@@ -1876,6 +2129,7 @@ function chapterDetails(chapter,target) {
 		// 	})
 		// 	.text(chapters[chapter-1].title);
 
+	var max;
 	if ((chapter === 1 || chapter == 8) && target == '#chapterOver') {
 		var x = d3.scale.linear()
 		    .domain([0, 2250])
@@ -1886,6 +2140,12 @@ function chapterDetails(chapter,target) {
 		    .range([0, chartWidth-20]);
 	}
 	else {
+		max = d3.max(data, function(d) { 
+					return d3.max(d.data, function(n) { 
+						return n.notes+1; 
+					});
+				}); 
+
 		var x = d3.scale.linear()
 		    .domain([0, 37])
 		    .range([0, chartWidth-20]);
@@ -2007,8 +2267,7 @@ function chapterDetails(chapter,target) {
 			    		// else
 			    		// 	 	
 			    	} 
-	    		}
-		    	
+	    		}	
 	    	},
 	    	y: barHeight / 2,
 	    	dy: ".35em",
@@ -2040,11 +2299,11 @@ function chapterDetails(chapter,target) {
 /*
 	Function that will display the labels of the disciplines in the chapter breakdown detail chart.
 */
-function showDisciplineLabels(disciplines,barHeight) {
-	$('#chapterDisciplines').html('');
-	$('#chapterDisciplines').show();
-	var svg = d3.select("div#chapterDisciplines").append('svg')
-				.attr('height',500)
+function showDisciplineLabels(disciplines,barHeight,target) {
+	$(target).html('');
+	$(target).show();
+	var svg = d3.select("div"+target).append('svg')
+				.attr('height',250)
 
 	var bar = svg.selectAll('g')
 		.data(disciplines)
@@ -2055,17 +2314,23 @@ function showDisciplineLabels(disciplines,barHeight) {
 	    	}
 	    });
 
+	bar.selectAll('rect')
+		.attr({
+
+		})
+
 	bar.append("text")
 	    .attr({
 	    	y: barHeight / 2,
 	    	dy: ".45em",
 	    	fill: function(d) {
-	    			return "black";
+	    		return "black";
 	    	}
 	    })
 	    .text(function(d) { 
-	    		return d; 
-	    });
+	    	return d; 
+	    })
+	    .style('text-anchor','end');
 }
 
 
@@ -2269,15 +2534,16 @@ function disciplineSideBySide() {
 
 
 /*
-
+	Function that will create the stack bar chart of the distribution between notes and content for every chapter in the book.
 */
 function createStackBar() {
 
-	var width = 800,
+	var width = getParentWidth($("#stacked")),
 		height = 300,
 		margin = 20;
 
 
+	var data = chapterPercentages;
 
 	var svg = d3.select('div#stacked').append('svg')
 				.attr({
@@ -2285,41 +2551,7 @@ function createStackBar() {
 					'height':height
 				});
 
-	var data  = [
-		{
-			'chapter':1,'totalLength':19342,'notesLength':3344,'contentLength':15998,'notes%':17.29,'content%':82.71,	'lengths':[{'cat':'Content','percentage':82.71,'value':15998,'y0':0,'y1':15998},{'cat':'Notes','percentage':17.29,'value':3344,'y0':15998,'y1':19342}]
-		},
-		{
-			'chapter':2,'totalLength':15772,'notesLength':2120,'contentLength':13652,'notes%':13.44,'content%':86.56,	'lengths':[{'cat':'Content','percentage':86.56,'value':13652,'y0':0,'y1':13652},{'cat':'Notes','percentage':13.44,'value':2120,'y0':13652,'y1':15772}]
-		},
-		{
-			'chapter':3,'totalLength':21010,'notesLength':3267,'contentLength':17743,'notes%':15.55,'content%':84.45,	'lengths':[{'cat':'Content','percentage':84.45,'value':17743,'y0':0,'y1':17743},{'cat':'Notes','percentage':15.55,'value':3267,'y0':17743,'y1':21010}]
-		},
-		{
-			'chapter':4,'totalLength':17654,'notesLength':1450,'contentLength':16204,'notes%':8.21,'content%':91.79,	'lengths':[{'cat':'Content','percentage':91.79,'value':16204,'y0':0,'y1':16204},{'cat':'Notes','percentage':8.21,'value':1450,'y0':16204,'y1':17654}]
-		},
-		{
-			'chapter':5,'totalLength':22765,'notesLength':3450,'contentLength':19315,'notes%':15.15,'content%':84.85,	'lengths':[{'cat':'Content','percentage':84.85,'value':19315,'y0':0,'y1':19315},{'cat':'Notes','percentage':15.15,'value':3450,'y0':19315,'y1':22765}]
-		},
-		{
-			'chapter':6,'totalLength':18096,'notesLength':4563,'contentLength':13533,'notes%':25.22,'content%':74.78,	'lengths':[{'cat':'Content','percentage':74.78,'value':13533,'y0':0,'y1':13533},{'cat':'Notes','percentage':25.22,'value':4563,'y0':13533,'y1':18096}]
-		},
-		{
-			'chapter':7,'totalLength':19763,'notesLength':2897,'contentLength':16866,'notes%':14.66,'content%':85.34,	'lengths':[{'cat':'Content','percentage':85.34,'value':16866,'y0':0,'y1':16866},{'cat':'Notes','percentage':14.66,'value':2897,'y0':16866,'y1':19763}]
-		},
-		{
-			'chapter':8,'totalLength':18290,'notesLength':3003,'contentLength':15287,'notes%':16.42,'content%':83.58,	'lengths':[{'cat':'Content','percentage':83.58,'value':15287,'y0':0,'y1':15287},{'cat':'Notes','percentage':16.42,'value':3003,'y0':15287,'y1':18290}]
-		},
-		{
-			'chapter':9,'totalLength':21543,'notesLength':2104,'contentLength':19439,'notes%':9.77,'content%':90.23,	'lengths':[{'cat':'Content','percentage':90.23,'value':19439,'y0':0,'y1':19439},{'cat':'Notes','percentage':9.77,'value':2104,'y0':19439,'y1':21543}]
-		},
-		{
-			'chapter':10,'totalLength':25094,'notesLength':6024,'contentLength':19070,'notes%':24.01,'content%':75.99,	'lengths':[{'cat':'Content','percentage':75.99,'value':19070,'y0':0,'y1':19070},{'cat':'Notes','percentage':24.01,'value':6024,'y0':19070,'y1':25094}]
-		},
-		{
-			'chapter':11,'totalLength':17908,'notesLength':1402,'contentLength':16506,'notes%':7.83,'content%':92.17,	'lengths':[{'cat':'Content','percentage':92.17,'value':16506,'y0':0,'y1':16506},{'cat':'Notes','percentage':7.83,'value':1402,'y0':16506,'y1':17908}]
-		}
-	]
+	
 
 	var x = d3.scale.ordinal()
 				.domain(data.map(function(d) {
@@ -2336,15 +2568,14 @@ function createStackBar() {
 
 	var xAxis = d3.svg.axis()
 					.scale(x)
-					.orient('bottom');
+					.orient('bottom')
+					.tickSize(0,0);
 
 	var yAxis = d3.svg.axis()
 					.scale(y)
 					.orient('left')
-					.ticks(10)
+					.ticks(5)
 					.tickFormat(d3.format(".2s"));
-
-	
 
 	var bars = svg.selectAll('.ch')
 					.data(data)
@@ -2355,6 +2586,9 @@ function createStackBar() {
 						'transform': function(d) {
 							return 'translate('+ x(d.chapter) +',0)';
 						}
+					})
+					.on('click', function(d) {
+						createChapterContentDistribution(d.chapter);
 					});
 
 	bars.selectAll('rect')
@@ -2390,7 +2624,7 @@ function createStackBar() {
 		.append('text')
 		.attr({
 			transform: function(d) {
-				return 'translate(10,'+(y(d.y0)-5)+')';
+				return 'translate(5,'+(y(d.y0)-5)+')';
 			},
 			fill: function(d) {
 				if (d.cat == 'Content') 
@@ -2398,7 +2632,7 @@ function createStackBar() {
 				else
 					return 'black';
 			},
-			'font-size': '10px'
+			'font-size': '8px'
 
 		})
 		.text(function(d) {
@@ -2443,7 +2677,7 @@ function createStackBar() {
 			y:height-40,
 			'font-size':'12px'
 		})
-		.text("Chapter Content")
+		.text("Content")
 
 	svg.append('rect')
 		.attr({
@@ -2459,7 +2693,126 @@ function createStackBar() {
 			y:height-40,
 			'font-size':'12px'
 		})
-		.text("Chapter Notes")
+		.text("Notes")
+}
+
+
+/*
+	Function that creates the single chapter distribution between notes and content. It builds an horizontal stacked bar chart that will be used at the beginning of each one of the chapter within the ebook.
+*/
+function createChapterContentDistribution(chapter) {
+
+	$('#chapterStats').html('');
+	//Adding the title to the chapter distribution
+	$('#chapterStats').append('<h2>Chapter '+chapter+' </h2>');
+	
+	var width = getParentWidth($('#chapterStats')),
+		height = 100;
+
+	var svg = d3.select('div#chapterStats').append('svg')
+				.attr({
+					'class': 'chapterContentDistribution',
+					'height': height,
+					'width': width
+				});
+
+	
+	var barHeight = 50;
+	var data;
+	$.each(chapterPercentages, function(i,d) {
+			if (d.chapter === chapter) 
+				data = d;
+		});
+
+	var x = d3.scale.linear()
+				.domain([0,data.totalLength])
+				.range([0,width]);
+
+	var bars = svg.selectAll('.chapterPortions')
+		.data(data.lengths)
+		.enter()
+		.append('g');
+
+	bars.append('rect')
+			.attr({
+				'x': function(d) {
+					return x(d.y0);
+				},
+				'width': function(d) {
+					return x(d.value);
+				},
+				'height': barHeight,
+				'fill': function (d) {
+					if (d.cat == 'Content')
+						return hue(7);
+					else 
+						return hue(0);
+				},
+				'percentage': function (d) {
+					return d.percentage;
+				}	
+			});
+
+	bars.append('text')
+		.attr({
+			'class': 'barLabel',
+			'fill': function(d) {
+				if (d.cat == 'Content')
+					return 'white';
+				else 
+					return 'black';
+			},
+			'y': barHeight-5,
+			'x': function(d) {
+				return x(d.y0)+5;
+			},
+			'font-size': '12px'
+		})
+		.text(function(d) {
+			return d.percentage +" %";	
+		});
+
+	svg.append('rect')
+		.attr({
+			width: 10,
+			height:10,
+			x: width/3,
+			y:height-(barHeight-5),
+			fill: hue(7)
+		})
+
+	svg.append('text')
+		.attr({
+			x: (width/3)+18,
+			y:height-(barHeight),
+			'font-size':'12px'
+		})
+		.text("Content");
+
+	svg.append('rect')
+		.attr({
+			width: 10,
+			height:10,
+			x: (width/2),
+			y:height-(barHeight-5),
+			fill: hue(0)
+		});
+	svg.append('text')
+		.attr({
+			x: (width/2)+18,
+			y:height-(barHeight),
+			'font-size':'12px'
+		})
+		.text("Notes");
+}
+
+function getParentWidth(element) {
+	var width = $(element).parent().width();
+	if (width > 600) {
+		return 600;
+	} else {
+		return width;
+	}
 }
 
 

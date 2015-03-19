@@ -1,5 +1,5 @@
 #tdoViz {
-	width: 1000px;
+	width: 800px;
 	margin: 0 auto;
 }
 
@@ -104,7 +104,8 @@ rect.chapter:hover {
 	border: solid thin black;*/
 }
 
-#chapterDisciplines {
+#chapterDisciplines,
+.disciplineLabels {
 	
 	width:120px;
 	display: inline-block;
