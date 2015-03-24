@@ -25,8 +25,6 @@ var colors = function(i) {
 	return colors[i];
 }
 
-
-
 var disciplines = ["Archives", "Business", "Cognitive Science", "Computing", "IA", "Law", "Linguistics", "LIS", "Museums", "Philosophy", "Web"];
 
 var disciplineSelections= [];
@@ -1724,6 +1722,7 @@ d3.select('#tooltip').append('div')
 
 $(document).ready(function() {
 	createStackBar();
+	createChapterContentPieChart(1);
 	showDisciplineLabels(disciplines,20,'#chapterLabels');
 	chapterDetails(1,'#chapterDetails');
 })
@@ -1734,7 +1733,7 @@ function disciplineBreakdown() {
 	$('#main .chart').html('');
 	$('#breakdownSelected').html('');
 
-	
+	var width = 600
 
 	var categories = disciplineTotals.map(function(d) {
 			return d.name;
@@ -1755,7 +1754,7 @@ function disciplineBreakdown() {
 
 	var svg = d3.select('div #main .chart').append('svg')
 				.attr('id','book')
-				.attr('width',800)
+				.attr('width',width)
 				.attr('height',60);
 
 	$('#main .title').show();
@@ -1763,13 +1762,15 @@ function disciplineBreakdown() {
 
 	var xPercentageScale = d3.scale.linear()
 					.domain([0,100])
-					.range([0,750]);
+					.range([0,width]);
 
 	var values = disciplinesPercentage[0].map(function (d) {
 	        return d.cat;
 	    });
 	var stack = d3.layout.stack();
 	stack(disciplinesPercentage);
+
+	disciplineSideBySide();
 
 	var rects = svg.selectAll('rect')
 					.data(disciplinesPercentage)
@@ -1827,7 +1828,8 @@ function disciplineBreakdown() {
 					.on('click', function(d,i) {
 						selectDiscipline(disciplines[i]);
 						//breakdown('#breakdownSelected',d,i);
-					})			
+					});
+
 }
 
 
@@ -2073,7 +2075,7 @@ function chapterBreakdown() {
 */
 function chapterDetails(chapter,target) {
 	
-	var chartWidth = 320;
+	var chartWidth = 300;
 	var barHeight = 20;
 
 	showDisciplineLabels(disciplines,barHeight,'#chapterDisciplines');
@@ -2092,7 +2094,7 @@ function chapterDetails(chapter,target) {
 					'percentage':d[key].percentage
 				};
 				// Testing for note length mode just for chapter 1.
-				if (d.chapter == 1 || chapter == 8) {
+				if ((d.chapter == 1 || chapter == 8) && target == '#chapterOver') {
 					temp['length'] = d[key].length;
 					temp['lenpercent'] = d[key].lenpercent;
 					temp['notesData'] = d[key].notesData;
@@ -2141,17 +2143,18 @@ function chapterDetails(chapter,target) {
 	}
 	else {
 		max = d3.max(data, function(d) { 
-					return d3.max(d.data, function(n) { 
-						return n.notes+1; 
-					});
+					// return d3.max(d.data, function(n) { 
+					// 	return n.notes+1; 
+					// });
+					return d;
 				}); 
 
 		var x = d3.scale.linear()
-		    .domain([0, 37])
+		    .domain([0, max+1])
 		    .range([0, chartWidth-20]);
 
     	var xOver = d3.scale.linear()
-		    .domain([37,0])
+		    .domain([max+1,0])
 		    .range([0, chartWidth-20]);
 	}
 		
@@ -2356,8 +2359,8 @@ function selectDiscipline(selection) {
 function disciplineSideBySide() {
 
 	$('#sidebyside').remove();
-	var margin = 20;
-	var width = 800;
+	var margin = 25;
+	var width = 600;
 	var height = 180;
 	var groupPadding = .2;
 
@@ -2398,7 +2401,7 @@ function disciplineSideBySide() {
 
 	var x0 = d3.scale.ordinal()
 				.domain(["1","2","3","4","5","6","7","8","9","10","11"])
-				.rangeBands([margin, width-margin],groupPadding);
+				.rangeBands([margin, (width-100)-margin],groupPadding);
 	var x1 = d3.scale.ordinal();
 	var y = d3.scale.linear()
     			.range([height-margin, 0]);
@@ -2422,7 +2425,8 @@ function disciplineSideBySide() {
 
 	var xAxis = d3.svg.axis()
 	    .scale(x0)
-	    .orient("bottom");
+	    .orient("bottom")
+	    .tickSize(0,0);
 
 	var yAxis = d3.svg.axis()
 	    .scale(y)
@@ -2495,7 +2499,13 @@ function disciplineSideBySide() {
 	svg.append("g")
 		.attr("class", "x axis")
 		.attr("transform", "translate(0," + (height-margin) + ")")
-		.call(xAxis);
+		.call(xAxis)
+		.append('text')
+			.attr({
+				'transform': 'translate(250,21)'
+			})
+			.style("text-anchor", "end")
+	  		.text("Chapters");
 
 	svg.append("g")
 	  .attr("class", "y axis")
@@ -2503,33 +2513,89 @@ function disciplineSideBySide() {
 	  .call(yAxis)
 	.append("text")
 	  .attr("transform", "rotate(-90)")
-	  .attr("y", margin)
+	  .attr("y", 5)
 	  .attr("dy", ".71em")
 	  .style("text-anchor", "end")
 	  .text("# of notes");
 
-	barGroups.selectAll('.sidebysideLabel')
-		.data(function(d) {
-			return d.data
-		})
+	// barGroups.selectAll('.sidebysideLabel')
+	// 	.data(function(d) {
+	// 		return d.data
+	// 	})
+	// 	.enter()
+	// 	.append('text')
+	// 	.attr({
+	// 		'x': function(d,i){
+	// 			return x1(d.discipline)+(x1.rangeBand()/2)-5;
+	// 		},
+	// 		'y': function(d,i) {
+	// 			return y(d.notes)-10;
+	// 		},
+	// 		'fill': function(d) {
+	// 			return 'white';
+	// 			// return colors($.inArray(d.discipline,disciplines)); 
+	// 		}			
+	// 	})
+	// 	.text(function(d) {
+	// 		if (d.notes > 0)
+	// 			return d.notes;
+	// 	})
+
+	var chartLabels = svg.selectAll('.disciplineBreakdownLabels')
+		.data(disciplineSelections)
 		.enter()
-		.append('text')
+		.append('g')
+			.attr({
+				'class':'disciplineBreakdownLabels',
+				'transform': function(d,i) {
+					var spacing = height/disciplines.length;
+					return "translate("+(width-110)+","+((i+1)*spacing)+")";
+				}
+			});
+
+	chartLabels.append('text')
 		.attr({
-			'x': function(d,i){
-				return x1(d.discipline)+(x1.rangeBand()/2)-5;
-			},
-			'y': function(d,i) {
-				return y(d.notes)-10;
-			},
-			'fill': function(d) {
-				return 'white';
-				// return colors($.inArray(d.discipline,disciplines)); 
-			}			
+			'fill':'black',
+			'font-size':'8pt',
+			'dx':'10px'
 		})
 		.text(function(d) {
-			if (d.notes > 0)
-				return d.notes;
+			return d;
+		});
+
+	chartLabels.append('rect')
+		.attr({
+			'y':-8,
+			'width':8,
+			'height':8,
+			'fill': function(d,i) {
+				var index = $.inArray(d,disciplines);
+				return colors(index);
+			}
 		})
+
+	if (disciplineSelections.length==0) {
+		var box = svg.append('g')
+			.attr({
+				'transform': 'translate(100,50)'
+			});
+
+		box.append('rect')
+			.attr({
+
+				'width': 320,
+				'height':50,
+				'fill': hue(0)
+			})
+
+		box.append('text')
+			.attr({
+				'max-width':250,
+				'dy': 25,
+				'dx': 15,
+			})
+			.text('Please select a discipline from the bar above.')
+	}
 }
 
 
@@ -2609,7 +2675,7 @@ function createStackBar() {
 				if (d.cat == 'Content')
 					return hue(7);
 				else 
-					return hue(0);
+					return hue(11);
 			},
 			'value': function(d) {
 				return d.value;	
@@ -2685,7 +2751,7 @@ function createStackBar() {
 			height:10,
 			x: (width/2),
 			y:height-50,
-			fill: hue(0)
+			fill: hue(11)
 		});
 	svg.append('text')
 		.attr({
@@ -2746,7 +2812,7 @@ function createChapterContentDistribution(chapter) {
 					if (d.cat == 'Content')
 						return hue(7);
 					else 
-						return hue(0);
+						return hue(11);
 				},
 				'percentage': function (d) {
 					return d.percentage;
@@ -2795,7 +2861,7 @@ function createChapterContentDistribution(chapter) {
 			height:10,
 			x: (width/2),
 			y:height-(barHeight-5),
-			fill: hue(0)
+			fill: hue(11)
 		});
 	svg.append('text')
 		.attr({
@@ -2814,6 +2880,122 @@ function getParentWidth(element) {
 		return width;
 	}
 }
+
+
+
+/*
+	Function the will create the pie chart with the content vs notes pie chart at the beginning of every chapter.
+*/
+function createChapterContentPieChart(chapter) {
+	var width = 250,
+		height = 250,
+		radius = Math.min(width,height/2);
+
+
+	var data;
+	$.each(chapterPercentages, function(i,d) {
+		if (d.chapter == chapter)
+			data = d;
+	});
+
+	var arc = d3.svg.arc()
+				.outerRadius(radius-10)
+				.innerRadius(0);
+
+	var pie = d3.layout.pie()
+				.sort(null)
+				.startAngle(1.1*Math.PI)
+				.endAngle(3.1*Math.PI)
+				.value(function (d) {
+					return d.value
+				})
+
+	var svg = d3.select('div#chapterPie').append('svg')
+					.attr({
+						'class': 'pieChart',
+						'width': width,
+						'height': height
+					})
+				.append('g')
+					.attr('transform', 'translate('+(width/2)+','+(height/2)+')');
+
+	var g = svg.selectAll('.arc')
+		.data(pie(data.lengths))
+		.enter()
+		.append('g')
+			.attr({
+				'class':'arc'
+			});
+
+	function arcTween(a) {
+		var i = d3.interpolate(this._current,a);
+		this._current = i(0);
+		return function(t) {
+			return arc(i(t));
+		};
+	}
+
+	g.append('path')
+		.attr({
+			// 'd':arc,
+			'fill': function(d) {
+				if (d.data.cat == 'Content')
+					return hue(7);
+				else 
+					return hue(11);
+			},
+			'stroke': '#FFF'
+		})
+		.transition().delay(function(d, i) { return i * 500; }).duration(500)
+		.attrTween('d', function(d) {
+		   var i = d3.interpolate(d.startAngle+0.1, d.endAngle);
+		   return function(t) {
+		       d.endAngle = i(t);
+		     return arc(d);
+		   }
+		});
+
+	g.append('text')
+		.attr({
+			'transform': function(d) {
+				return "translate("+arc.centroid(d)+")";
+			},
+			'dy': '.35em',
+			'text-anchor': 'middle',
+			'fill': function(d) {
+				if (d.data.cat == 'Content')
+					return 'white';
+				else 
+					return 'black';
+			}
+		})
+		.text(function(d) {
+			return d.data.cat;
+		})
+
+	g.append('text')
+		.attr({
+			'transform': function(d) {
+				return 'translate('+arc.centroid(d)+")";
+			},
+			'dy': '1.8em',
+			'dx':'.3em',
+			'font-size': '10pt',
+			'font-weight': 'bold',
+			'text-anchor': 'middle',
+			'fill': function(d) {
+				if (d.data.cat == 'Content')
+					return 'white';
+				else 
+					return 'black';
+			}
+		})
+		.text(function(d) {
+			return d.data.percentage +"%";
+		})
+}
+
+
 
 
 

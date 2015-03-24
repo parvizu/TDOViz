@@ -145,3 +145,9 @@ rect.chapter:hover {
 	display: block;
 	margin-bottom: 20px;
 }
+
+
+
+.arc path {
+  stroke: #fff;
+}
